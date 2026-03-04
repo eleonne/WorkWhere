@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx prisma migrate dev --name init)",
+      "WebFetch(domain:www.prisma.io)",
+      "WebFetch(domain:pris.ly)",
+      "Bash(npm install prisma@^5 @prisma/client@^5)",
+      "Bash(npm test)"
+    ]
+  }
+}
