@@ -1,0 +1,64 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+}
+
+.empty {
+  background: transparent;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  padding: 0;
+}
+
+.day:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.day.telework {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+.day.telework:hover {
+  background: #bfdbfe;
+}
+
+.dayNumber {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2563eb;
+}
