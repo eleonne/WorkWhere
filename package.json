@@ -6,7 +6,9 @@
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "vite",
     "dev:server": "tsx watch src/api/index.ts",
-    "build": "tsc -b && vite build",
+    "build": "prisma generate && vite build && tsc -p tsconfig.server.json",
+    "start": "NODE_ENV=production npx prisma migrate deploy && node build/index.js",
+    "zip": "tar -r deploy.zip . -x 'node_modules/*' -x 'dist/*' -x 'build/*' -x '.git/*' -x '*.db' -x '.env' -x 'deploy.zip'",
     "test": "jest",
     "lint": "eslint src --ext .ts,.tsx"
   },
@@ -15,6 +17,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "prisma": "^5.22.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
@@ -34,7 +37,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "jest": "^30.2.0",
-    "prisma": "^5.22.0",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
