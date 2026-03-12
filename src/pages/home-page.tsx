@@ -3,6 +3,7 @@ import type { TeleworkDay, TeleworkMonthData, EventType } from '../types/telewor
 import { fetchTeleworkDays, createTeleworkDay, updateTeleworkDay, deleteTeleworkDay } from '../services/telework-api'
 import { fetchCurrentUser } from '../services/auth-api'
 import type { UserInfo } from '../services/auth-api'
+import { requestNotificationPermission, showNotification } from '../services/notifications'
 import { MonthSelector } from '../components/month-selector/month-selector'
 import { TeleworkSummary } from '../components/telework-summary/telework-summary'
 import { Calendar } from '../components/calendar/calendar'
@@ -26,6 +27,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     void fetchCurrentUser().then(setUser)
+    void requestNotificationPermission()
   }, [])
 
   // null = closed | string = add mode (prefill date) | TeleworkDay = edit mode
@@ -54,13 +56,17 @@ export const HomePage = () => {
 
   const handleFormSubmit = async (date: string, type: EventType, comment?: string) => {
     try {
-      if (formState && typeof formState === 'object') {
+      const isEdit = formState !== null && typeof formState === 'object'
+      if (isEdit && typeof formState === 'object') {
         await updateTeleworkDay(formState.id, { date, type, comment })
       } else {
         await createTeleworkDay(date, type, comment)
       }
       setFormState(null)
       await loadData()
+      const label = type === 'DAY_OFF' ? 'Day Off' : 'Telework day'
+      const verb = isEdit ? 'updated' : 'saved'
+      void showNotification(`${label} ${verb}`, date)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred.')
     }
@@ -70,6 +76,7 @@ export const HomePage = () => {
     try {
       await deleteTeleworkDay(id)
       await loadData()
+      void showNotification('Event deleted')
     } catch {
       setError('Failed to delete telework day.')
     }
