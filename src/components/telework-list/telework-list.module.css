@@ -29,10 +29,35 @@
   gap: 0.2rem;
 }
 
+.dateRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .date {
   font-weight: 500;
   font-size: 0.95rem;
   color: #111827;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badgeTelework {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badgeDayOff {
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .comment {

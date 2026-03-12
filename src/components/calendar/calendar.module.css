@@ -50,6 +50,15 @@
   background: #bfdbfe;
 }
 
+.day.dayOff {
+  background: #fef3c7;
+  border-color: #d97706;
+}
+
+.day.dayOff:hover {
+  background: #fde68a;
+}
+
 .dayNumber {
   font-size: 0.9rem;
   font-weight: 500;
@@ -61,4 +70,11 @@
   height: 6px;
   border-radius: 50%;
   background: #2563eb;
+}
+
+.dotDayOff {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d97706;
 }

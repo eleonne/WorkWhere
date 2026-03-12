@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { TeleworkDay, TeleworkMonthData } from '../types/telework'
+import type { TeleworkDay, TeleworkMonthData, EventType } from '../types/telework'
 import { fetchTeleworkDays, createTeleworkDay, updateTeleworkDay, deleteTeleworkDay } from '../services/telework-api'
 import { fetchCurrentUser } from '../services/auth-api'
 import type { UserInfo } from '../services/auth-api'
@@ -52,12 +52,12 @@ export const HomePage = () => {
     setFormState(teleworkDay ?? date)
   }
 
-  const handleFormSubmit = async (date: string, comment?: string) => {
+  const handleFormSubmit = async (date: string, type: EventType, comment?: string) => {
     try {
       if (formState && typeof formState === 'object') {
-        await updateTeleworkDay(formState.id, { date, comment })
+        await updateTeleworkDay(formState.id, { date, type, comment })
       } else {
-        await createTeleworkDay(date, comment)
+        await createTeleworkDay(date, type, comment)
       }
       setFormState(null)
       await loadData()
@@ -113,7 +113,7 @@ export const HomePage = () => {
           day={typeof formState === 'object' ? formState : undefined}
           prefillDate={typeof formState === 'string' ? formState : undefined}
           remaining={remaining}
-          onSubmit={(date, comment) => void handleFormSubmit(date, comment)}
+          onSubmit={(date, type, comment) => void handleFormSubmit(date, type, comment)}
           onClose={() => setFormState(null)}
         />
       )}

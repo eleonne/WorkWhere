@@ -1,4 +1,4 @@
-import type { TeleworkDay, TeleworkMonthData } from '../types/telework'
+import type { TeleworkDay, TeleworkMonthData, EventType } from '../types/telework'
 
 const BASE = '/api/telework'
 
@@ -8,11 +8,15 @@ export const fetchTeleworkDays = async (month: string): Promise<TeleworkMonthDat
   return res.json() as Promise<TeleworkMonthData>
 }
 
-export const createTeleworkDay = async (date: string, comment?: string): Promise<TeleworkDay> => {
+export const createTeleworkDay = async (
+  date: string,
+  type: EventType = 'TELEWORK',
+  comment?: string,
+): Promise<TeleworkDay> => {
   const res = await fetch(BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ date, comment }),
+    body: JSON.stringify({ date, type, comment }),
   })
   if (!res.ok) {
     const body = await res.json() as { error: string }
@@ -23,7 +27,7 @@ export const createTeleworkDay = async (date: string, comment?: string): Promise
 
 export const updateTeleworkDay = async (
   id: number,
-  data: { date?: string; comment?: string },
+  data: { date?: string; type?: EventType; comment?: string },
 ): Promise<TeleworkDay> => {
   const res = await fetch(`${BASE}/${id}`, {
     method: 'PUT',

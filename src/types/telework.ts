@@ -1,6 +1,9 @@
+export type EventType = 'TELEWORK' | 'DAY_OFF'
+
 export type TeleworkDay = {
   id: number
   date: string
+  type: EventType
   comment: string | null
   createdAt: string
   updatedAt: string
@@ -8,6 +11,6 @@ export type TeleworkDay = {
 
 export type TeleworkMonthData = {
   days: TeleworkDay[]
-  total: number
-  remaining: number
+  total: number      // telework days only
+  remaining: number  // 12 - total
 }

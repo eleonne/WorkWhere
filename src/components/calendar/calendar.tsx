@@ -47,15 +47,21 @@ export const Calendar = ({ currentMonth, days, onDayClick }: Props) => {
           if (!date) return <div key={`empty-${i}`} className={styles.empty} />
           const key = toDateKey(date)
           const teleworkDay = teleworkMap.get(key) ?? null
+          const dayClass = teleworkDay
+            ? teleworkDay.type === 'DAY_OFF'
+              ? styles.dayOff
+              : styles.telework
+            : ''
+          const dotClass = teleworkDay?.type === 'DAY_OFF' ? styles.dotDayOff : styles.dot
           return (
             <button
               key={key}
-              className={`${styles.day} ${teleworkDay ? styles.telework : ''}`}
+              className={`${styles.day} ${dayClass}`}
               onClick={() => onDayClick(key, teleworkDay)}
               title={teleworkDay?.comment ?? undefined}
             >
               <span className={styles.dayNumber}>{date.getDate()}</span>
-              {teleworkDay && <span className={styles.dot} />}
+              {teleworkDay && <span className={dotClass} />}
             </button>
           )
         })}

@@ -73,6 +73,49 @@
   resize: vertical;
 }
 
+.typeToggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+
+.typeOption {
+  flex: 1;
+  text-align: center;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #6b7280;
+  background: white;
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+
+.typeOption:first-child {
+  border-right: 1px solid #d1d5db;
+}
+
+.typeActive {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.typeActiveDayOff {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.radioHidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
 .actions {
   display: flex;
   justify-content: flex-end;

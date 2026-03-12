@@ -17,13 +17,18 @@ const formatDate = (isoDate: string): string => {
   })
 }
 
+const TYPE_LABELS: Record<string, string> = {
+  TELEWORK: 'Telework',
+  DAY_OFF: 'Day Off',
+}
+
 export const TeleworkList = ({ days, onEdit, onDelete }: Props) => {
   if (days.length === 0) {
-    return <p className={styles.empty}>No telework days logged this month.</p>
+    return <p className={styles.empty}>No events logged this month.</p>
   }
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Delete this telework day?')) {
+    if (window.confirm('Delete this event?')) {
       onDelete(id)
     }
   }
@@ -33,7 +38,12 @@ export const TeleworkList = ({ days, onEdit, onDelete }: Props) => {
       {days.map((day) => (
         <li key={day.id} className={styles.item}>
           <div className={styles.info}>
-            <span className={styles.date}>{formatDate(day.date)}</span>
+            <div className={styles.dateRow}>
+              <span className={styles.date}>{formatDate(day.date)}</span>
+              <span className={`${styles.badge} ${day.type === 'DAY_OFF' ? styles.badgeDayOff : styles.badgeTelework}`}>
+                {TYPE_LABELS[day.type] ?? day.type}
+              </span>
+            </div>
             {day.comment && <span className={styles.comment}>{day.comment}</span>}
           </div>
           <div className={styles.actions}>

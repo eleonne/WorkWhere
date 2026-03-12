@@ -10,12 +10,12 @@ export const TeleworkSummary = ({ total, remaining }: Props) => {
     <div className={styles.container}>
       <div className={styles.stat}>
         <span className={styles.value}>{total}</span>
-        <span className={styles.label}>days used</span>
+        <span className={styles.label}>telework used</span>
       </div>
       <div className={styles.divider} />
       <div className={styles.stat}>
         <span className={`${styles.value} ${remaining === 0 ? styles.zero : ''}`}>{remaining}</span>
-        <span className={styles.label}>days remaining</span>
+        <span className={styles.label}>telework left</span>
       </div>
       <div className={styles.divider} />
       <div className={styles.stat}>
