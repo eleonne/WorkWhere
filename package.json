@@ -10,9 +10,11 @@
     "start": "NODE_ENV=production npx prisma migrate deploy && node build/index.js",
     "zip": "tar -r deploy.zip . -x 'node_modules/*' -x 'dist/*' -x 'build/*' -x '.git/*' -x '*.db' -x '.env' -x 'deploy.zip'",
     "test": "jest",
+    "mcp": "tsx src/mcp/index.ts",
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "@prisma/client": "^5.22.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
