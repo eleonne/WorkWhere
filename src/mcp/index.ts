@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config({ quiet: true })
 
 import express from 'express'
+import rateLimit from 'express-rate-limit'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
 import { PrismaClient } from '@prisma/client'
@@ -159,6 +160,16 @@ function createServer(): McpServer {
 
 const app = express()
 app.use(express.json())
+
+const mcpLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' },
+})
+
+app.use('/mcp', mcpLimiter)
 
 app.post('/mcp', async (req, res) => {
   const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined })
