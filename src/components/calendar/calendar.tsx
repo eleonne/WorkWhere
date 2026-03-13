@@ -7,7 +7,7 @@ type Props = {
   onDayClick: (date: string, teleworkDay: TeleworkDay | null) => void
 }
 
-const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 const toDateKey = (date: Date): string => {
   const y = date.getFullYear()
@@ -21,8 +21,8 @@ const buildGrid = (month: string): (Date | null)[] => {
   const firstDay = new Date(year, m - 1, 1)
   const lastDay = new Date(year, m, 0)
 
-  // Monday = 0, Sunday = 6 (ISO week)
-  const startOffset = (firstDay.getDay() + 6) % 7
+  // Sunday = 0 (JS default)
+  const startOffset = firstDay.getDay()
 
   const grid: (Date | null)[] = []
   for (let i = 0; i < startOffset; i++) grid.push(null)
