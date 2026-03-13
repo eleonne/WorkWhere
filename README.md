@@ -1,5 +1,7 @@
 # WorkWhere
 
+Little side project created 100% with Claude prompts. No code typing.
+
 A PWA for tracking telework and day-off events. Displays a monthly calendar, enforces a 12-day telework limit per month, and exposes an MCP server for AI agent integration.
 
 ---
